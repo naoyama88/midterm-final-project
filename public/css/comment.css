@@ -1,6 +1,5 @@
 .comment-section {
   background-color: #1F232C;
-<<<<<<< HEAD
   padding: 50px 0;
 }
 .comment-section form input,
@@ -224,6 +223,5 @@
       transition: 0.25s ease-in-out;
       transform: translateX(-8px);
       filter: drop-shadow(5px 10px 1px rgba(18, 20, 26, 0.7)); }
->>>>>>> 796af17994dbfc3dd2490dca69e4f1ef22ce63c6
 
 /*# sourceMappingURL=comment.css.map */

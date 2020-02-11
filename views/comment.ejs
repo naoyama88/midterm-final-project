@@ -8,24 +8,24 @@
       rows="10"
       placeholder="How do you think?"
     ></textarea>
-    <input type="hidden" name="riddleId" value="<%= riddle._id %>" />
+    <input type="hidden" name="articleId" value="<%= article._id %>" />
     <button class="button button-blue button-comment" type="submit">
       Comment
     </button>
   </form>
   <% } %> <% if(!editComment && !createComment){ %>
   <div class="button-wrapper">
-    <a href="/comment/create?riddleId=<%= riddle._id%>">
+    <a href="/comment/create?articleId=<%= article._id%>">
       <div class="button button-blue">Take A Guess</div>
     </a>
   </div>
-  <% } %> <% comments.forEach( comment => {%> <% if(comment.riddle_id ==
-  riddle._id){%>
+  <% } %> <% comments.forEach( comment => {%> <% if(comment.article_id ==
+  article._id){%>
   <div class="each-comment">
     <% if(editComment && editCommentId == comment._id){ %>
     <form action="" method="POST" class="edit-comment-form">
       <input type="hidden" name="commentId" value="<%= comment._id %>" />
-      <input type="hidden" name="riddleId" value="<%= riddle._id %>" />
+      <input type="hidden" name="articleId" value="<%= article._id %>" />
       <input
         type="text"
         name="author"
@@ -59,7 +59,7 @@
     </form>
     <% } else{ %>
     <a
-      href="/comment/edit?commentId=<%= comment._id%>&riddleId=<%= comment.riddle_id%>"
+      href="/comment/edit?commentId=<%= comment._id%>&articleId=<%= comment.article_id%>"
     >
       <div class="menu"><%- include('partials/comment/threeDotsSvg') -%></div>
     </a>
@@ -73,7 +73,7 @@
       <form action="/comment/vote" id="agree" method="POST">
         <input type="hidden" name="id" value="<%= comment._id%>" />
         <input type="hidden" name="vote" value="agree" />
-        <input type="hidden" name="riddle_id" value="<%= riddle._id%>" />
+        <input type="hidden" name="article_id" value="<%= article._id%>" />
         <div class="agree" onclick="document.getElementById('agree').submit();">
           <%- include('partials/comment/agreeSvg') -%>
           <div class="vote-text">agree</div>
@@ -82,7 +82,7 @@
       <form action="/comment/vote" id="disagree" method="POST">
         <input type="hidden" name="id" value="<%= comment._id%>" />
         <input type="hidden" name="vote" value="disagree" />
-        <input type="hidden" name="riddle_id" value="<%= riddle._id%>" />
+        <input type="hidden" name="article_id" value="<%= article._id%>" />
         <div
           class="disagree"
           onclick="document.getElementById('disagree').submit();"
@@ -98,7 +98,7 @@
   <% if(!editComment && !createComment){ %>
   <a class="back-arrow" href="/">
   <% } else{ %>
-  <a class="back-arrow" href="/riddles/<%= riddle._id%>">
+  <a class="back-arrow" href="/articles/<%= article._id%>">
   <% } %>
     <svg width="65" height="40" viewBox="0 0 69 42" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M21.4696 1.44463L2 20.9142L21.4696 40.3839" stroke="#D5E8DF" stroke-width="2"/>

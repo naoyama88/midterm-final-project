@@ -7,7 +7,7 @@ exports.mongoConnect = callback => {
     `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.CLUSTER_NAME}/test?retryWrites=true&w=majority`
   )
     .then(client => {
-      db = client.db("riddle");
+      db = client.db("article");
       callback();
     })
     .catch(err => {

@@ -2,8 +2,8 @@ const database = require("../util/database");
 const mongodb = require("mongodb");
 
 class Comment {
-  constructor(riddleId, author, comment, vote) {
-    this.riddle_id = riddleId;
+  constructor(articleId, author, comment, vote) {
+    this.article_id = articleId;
     this.author = author;
     this.comment = comment;
     this.vote = vote;
@@ -37,11 +37,11 @@ class Comment {
       });
   }
 
-  static getRelatedComment(riddleId) {
+  static getRelatedComment(articleId) {
     return database
       .getDB()
       .collection("comments")
-      .find({riddle_id: riddleId})
+      .find({article_id: articleId})
       .toArray()
       .then(result => {
         return result;
@@ -62,11 +62,11 @@ class Comment {
       .deleteOne({ _id: new mongodb.ObjectId(id) });
   }
 
-  static async deleteAllComment(riddleId) {
+  static async deleteAllComment(articleId) {
     return database
       .getDB()
       .collection("comments")
-      .deleteMany( { riddle_id: riddleId } );
+      .deleteMany( { article_id: articleId } );
   }
 
   static updateComment(id, author, comment) {

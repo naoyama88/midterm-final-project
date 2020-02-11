@@ -36,26 +36,26 @@ exports.reversArr = (array) => {
   return result;
 }
 
-exports.filterRiddle = (filter , riddles) => {
+exports.filterArticle = (filter , articles) => {
   try {
   let result = [];
   if (filter === 'likes') {
-    const likeArr = riddles.map(riddle => {
-      return riddle.like
+    const likeArr = articles.map(article => {
+      return article.like
     })
     const sortedLike = this.mergeSort(likeArr);
     const reversedLike = this.reversArr(sortedLike);
     reversedLike.forEach(like => {
-      riddles.forEach(riddle => {
-        if (like === riddle.like) {
-          result.push(riddle);
+      articles.forEach(article => {
+        if (like === article.like) {
+          result.push(article);
         }
       })
     })
   } else if (filter === 'oldest') {
-    result = riddles;
+    result = articles;
   } else {
-    result =  this.reversArr(riddles);
+    result =  this.reversArr(articles);
   }
   return result;
   } catch (err) {
@@ -64,12 +64,12 @@ exports.filterRiddle = (filter , riddles) => {
 }
 
 exports.getRandomBgImg = () => {
-  const bgiImgFolder = __dirname + "/../public/img/riddle_background";
+  const bgiImgFolder = __dirname + "/../public/img/article_background";
   const imgFiles = fs.readdirSync(bgiImgFolder);
-  let bgImgFile = '/img/riddle_background/default.png';
+  let bgImgFile = '/img/article_background/default.png';
   if (imgFiles && imgFiles.length !== 1) {
     bgImgFile =
-      "/img/riddle_background/" +
+      "/img/article_background/" +
       imgFiles[Math.floor(Math.random() * Math.floor(imgFiles.length))];
   }
   return bgImgFile;

@@ -23,12 +23,12 @@ router.use(cors(corsOptions));
 
 router.get('/', controller.getHomePage);
 
-router.get('/create', controller.createRiddle);
-router.post('/create', controller.postRiddle);
+router.get('/create', controller.createArticle);
+router.post('/create', controller.postArticle);
 
-router.get('/riddles/:riddleId', controller.detailRiddle);
+router.get('/articles/:articleId', controller.detailArticle);
 router.post('/like', controller.like);
-router.post('/delete', controller.deleteRiddle);
+router.post('/delete', controller.deleteArticle);
 
 router.get('/comment/create', controller.showCommentForm);
 router.post('/comment/create', controller.createComment);
@@ -38,11 +38,11 @@ router.get('/comment/edit', controller.editComment);
 router.post('/comment/update', controller.updateComment);
 router.post('/comment/delete', controller.deleteComment);
 
-router.get('/api/getAllRiddles', controller.apiGetAllRiddles);
-router.get('/api/getRiddle/:riddleId', controller.apiGetRiddle);
-router.get('/api/getComments/:riddleId', controller.apiGetComments);
-router.post('/api/deleteRiddle', controller.apiDeleteRiddle);
-router.post('/api/createRiddle', controller.apiCreateRiddle);
+router.get('/api/getAllArticles', controller.apiGetAllArticles);
+router.get('/api/getArticle/:articleId', controller.apiGetArticle);
+router.get('/api/getComments/:articleId', controller.apiGetComments);
+router.post('/api/deleteArticle', controller.apiDeleteArticle);
+router.post('/api/createArticle', controller.apiCreateArticle);
 router.post('/api/createComment', controller.apiCreateComment);
 router.post('/api/comment/delete', controller.apiDeleteComment);
 router.post('/api/comment/update', controller.apiUpdateComment);

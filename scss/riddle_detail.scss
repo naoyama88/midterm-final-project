@@ -166,7 +166,7 @@ body {
     }
 }
 
-.riddle-detail-container {
+.article-detail-container {
     padding-top: 80px;
     background-color: #F5F5F5;
     background-size: cover;
@@ -177,7 +177,7 @@ body {
     min-height: 350px;
     overflow: scroll;
 
-    .riddle-detail {
+    .article-detail {
         width: 62%;
 
         .title {
@@ -188,7 +188,7 @@ body {
             font-size: 35px;
         }
 
-        .riddle-info {
+        .article-info {
             display: flex;
             justify-content: start;
             padding-bottom: 10px;

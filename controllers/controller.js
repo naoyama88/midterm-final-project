@@ -7,16 +7,16 @@ exports.getHomePage = (req, res, next) => {
   const filter = req.query.filter;
   Article.getAll().then(async articles => {
     let sortedArticles = await util.filterArticle(filter, articles);
-    res.render("home", { riddles: sortedRiddles, filter });
+    res.render("home", { articles: sortedArticles, filter });
   });
 };
 
-exports.createRiddle = (req, res, next) => {
+exports.createArticle = (req, res, next) => {
   res.render("create");
 };
 
-exports.postRiddle = (req, res, next) => {
-  const riddle = new Riddle(
+exports.postArticle = (req, res, next) => {
+  const article = new Article(
     req.body.author,
     req.body.title,
     req.body.content,
@@ -24,20 +24,20 @@ exports.postRiddle = (req, res, next) => {
     0,
     new Date()
   );
-  riddle.save();
+  article.save();
   res.redirect("/");
 };
 
-exports.detailRiddle = (req, res, next) => {
-  const riddleId = req.params.riddleId;
+exports.detailArticle = (req, res, next) => {
+  const articleId = req.params.articleId;
   const isEditing = req.query.edit;
 
-  Riddle.get(riddleId).then(riddle => {
-    riddle.date = util.getFormattedDate(riddle.date);
-    const bgImgFile = riddle.image_url || util.getRandomBgImg();
+  Article.get(articleId).then(article => {
+    article.date = util.getFormattedDate(article.date);
+    const bgImgFile = article.image_url || util.getRandomBgImg();
     Comment.getAllComment().then(comments => {
       res.render("detail", {
-        riddle,
+        article,
         comments,
         editMode: isEditing,
         bgImgFile,
@@ -49,24 +49,24 @@ exports.detailRiddle = (req, res, next) => {
   });
 };
 
-exports.deleteRiddle = async (req, res, next) => {
-  const riddleId = req.body.riddleId;
-  Comment.deleteAllComment(riddleId);
-  await Riddle.delete(riddleId);
+exports.deleteArticle = async (req, res, next) => {
+  const articleId = req.body.articleId;
+  Comment.deleteAllComment(articleId);
+  await Article.delete(articleId);
   res.redirect("/");
 };
 
 exports.like = async (req, res, next) => {
-  const riddleId = req.body.riddleId;
+  const articleId = req.body.articleId;
   const imgUrl = req.body.imgUrl;
-  await Riddle.like(riddleId);
-  res.redirect("/riddles/" + riddleId + "?imgUrl=" + imgUrl);
+  await Article.like(articleId);
+  res.redirect("/articles/" + articleId + "?imgUrl=" + imgUrl);
 };
 
 exports.showCommentForm = (req, res, next) => {
   res.redirect(
     url.format({
-      pathname: "/riddles/" + req.query.riddleId,
+      pathname: "/articles/" + req.query.articleId,
       query: {
         createComment: true
       }
@@ -76,26 +76,26 @@ exports.showCommentForm = (req, res, next) => {
 
 exports.createComment = (req, res, next) => {
   const comment = new Comment(
-    req.body.riddleId,
+    req.body.articleId,
     req.body.author,
     req.body.comment,
     0,
   );
   comment.saveComment();
-  res.redirect("/riddles/" + req.body.riddleId);
+  res.redirect("/articles/" + req.body.articleId);
 };
 
 exports.commentVote = async (req, res, next) => {
-  const { id, vote, riddle_id } = req.body;
+  const { id, vote, article_id } = req.body;
   let value = vote == 'agree'? 1: -1;
   await Comment.voteComment(id, value)
-  res.redirect(`/riddles/${riddle_id}`)
+  res.redirect(`/articles/${article_id}`)
 }
 
 exports.editComment = (req, res, next) => {
   res.redirect(
     url.format({
-      pathname: "/riddles/" + req.query.riddleId,
+      pathname: "/articles/" + req.query.articleId,
       query: {
         editComment: true,
         editCommentId: req.query.commentId
@@ -110,53 +110,53 @@ exports.updateComment = async (req, res, next) => {
     req.body.author,
     req.body.comment
   );
-  res.redirect("/riddles/" + req.body.riddleId);
+  res.redirect("/articles/" + req.body.articleId);
 };
 
 exports.deleteComment = async (req, res, next) => {
   await Comment.deleteComment(req.body.commentId);
-  res.redirect("/riddles/" + req.body.riddleId);
+  res.redirect("/articles/" + req.body.articleId);
 };
 
-// API get all riddles
-exports.apiGetAllRiddles = (req, res, next) => {
-  Riddle.getAll().then(riddles => {
-    res.send(riddles);
+// API get all articles
+exports.apiGetAllArticles = (req, res, next) => {
+  Article.getAll().then(articles => {
+    res.send(articles);
   });
 }
 
-// API get a riddle
-exports.apiGetRiddle = (req, res, next) => {
-  const riddleId = req.params.riddleId;
-  Riddle.get(riddleId).then(riddle => {
-    res.send(riddle);
+// API get a article
+exports.apiGetArticle = (req, res, next) => {
+  const articleId = req.params.articleId;
+  Article.get(articleId).then(article => {
+    res.send(article);
   });
 }
 
 // API get comments
 exports.apiGetComments = (req, res, next) => {
-  const riddleId = req.params.riddleId;
-  Comment.getRelatedComment(riddleId).then(comments => {
+  const articleId = req.params.articleId;
+  Comment.getRelatedComment(articleId).then(comments => {
     res.send(comments);
   });
 }
 
-// API like a riddle
+// API like a article
 exports.apiLike = async (req, res, next) => {
-  const riddleId = req.body.riddleId;
-  await Riddle.like(riddleId);
+  const articleId = req.body.articleId;
+  await Article.like(articleId);
   res.send('ok');
 }
 
-exports.apiDeleteRiddle = async (req, res, next) => {
-  const riddleId = req.body.riddleId;
-  Comment.deleteAllComment(riddleId);
-  await Riddle.delete(riddleId);
+exports.apiDeleteArticle = async (req, res, next) => {
+  const articleId = req.body.articleId;
+  Comment.deleteAllComment(articleId);
+  await Article.delete(articleId);
   res.send('ok');
 }
 
-exports.apiCreateRiddle = async (req, res, next) => {
-  const riddle = new Riddle(
+exports.apiCreateArticle = async (req, res, next) => {
+  const article = new Article(
     req.body.author,
     req.body.title,
     req.body.content,
@@ -164,13 +164,13 @@ exports.apiCreateRiddle = async (req, res, next) => {
     0,
     new Date()
   );
-  riddle.save();
+  article.save();
   res.send('ok');
 }
 
 exports.apiCreateComment = async (req, res, next) => {
   const comment = new Comment(
-    req.body.riddleId,
+    req.body.articleId,
     req.body.author,
     req.body.comment,
     0,
@@ -180,7 +180,7 @@ exports.apiCreateComment = async (req, res, next) => {
 }
 
 exports.apiCommentVote = async (req, res, next) => {
-  const { id, vote, riddle_id } = req.body;
+  const { id, vote, article_id } = req.body;
   let value = vote == 'agree'? 1: -1;
   await Comment.voteComment(id, value)
   res.send('ok');
