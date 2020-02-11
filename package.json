@@ -1,13 +1,14 @@
 {
-  "name": "express_example",
+  "name": "midterm-final-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is final project of midterm.",
+  "repository": "https://github.com/naoyama88/midterm-final-project.git",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Marcus and team-d",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.2"
