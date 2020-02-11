@@ -18,7 +18,7 @@
         <div class="author">Author: <%= article.author %></div>
         <div class="date"><%= article.date %></div>
       </div>
-      <p class="content"><%= article.article %></p>
+      <p class="content"><%= article.text %></p>
       <div class="form-like-container">
         <form action='/like' id="like" method='POST'>
           <input type='hidden' name='articleId' value='<%= article._id %>'>

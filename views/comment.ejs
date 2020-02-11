@@ -6,7 +6,7 @@
       name="comment"
       cols="30"
       rows="10"
-      placeholder="How do you think?"
+      placeholder="comment..."
     ></textarea>
     <input type="hidden" name="articleId" value="<%= article._id %>" />
     <button class="button button-blue button-comment" type="submit">
@@ -16,7 +16,7 @@
   <% } %> <% if(!editComment && !createComment){ %>
   <div class="button-wrapper">
     <a href="/comment/create?articleId=<%= article._id%>">
-      <div class="button button-blue">Take A Guess</div>
+      <div class="button button-blue">Comment</div>
     </a>
   </div>
   <% } %> <% comments.forEach( comment => {%> <% if(comment.article_id ==
@@ -36,7 +36,7 @@
         name="comment"
         cols="20"
         rows="5"
-        placeholder="How do you think?"
+        placeholder="Comment..."
       >
       <%= comment.comment %>
       </textarea>
@@ -63,9 +63,8 @@
     >
       <div class="menu"><%- include('partials/comment/threeDotsSvg') -%></div>
     </a>
-    <div class="vote-count"><%= comment.vote %> people think so too</div>
-    <div class="author"><%= comment.author %> thinks...</div>
-
+    <div class="vote-count"><%= comment.vote %> people has same opinion</div>
+    <div class="author">from <span class="comment-author-name"><%= comment.author %></span></div>
     <div class="comment">
       <%= comment.comment %>
     </div>

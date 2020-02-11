@@ -96,12 +96,16 @@
     .author {
       font-family: $title_font;
       margin-top: 10px;
-      font-size: 40px;
+      font-size: 14px;
       color: $primGreen;
+      .comment-author-name {
+        font-size: 22px;
+      }
     }
     .comment {
       color: $lightGray;
       margin-top: 10px;
+      font-size: 20px;
     }
 
     .wrap-vote {

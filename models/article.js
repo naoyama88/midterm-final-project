@@ -5,7 +5,7 @@ class Article {
   constructor(author, title, text, imageUrl, like = 0, date = new Date()) {
     this.title = title;
     this.author = author;
-    this.article = article;
+    this.text = text;
     this.like = like;
     this.image_url = imageUrl;
     this.date = date;
